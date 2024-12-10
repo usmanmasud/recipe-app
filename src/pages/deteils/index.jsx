@@ -6,7 +6,7 @@ import { GlobalContext } from '../../context';
 
 export default function Deteils() {
     const { id } = useParams();
-    const { recipeDetailsData, setRecipeDetailsData, handleAddToFavorites } = useContext(GlobalContext)
+    const { recipeDetailsData, setRecipeDetailsData, favorites, handleAddToFavorites } = useContext(GlobalContext)
 
 
     useEffect(() => {
@@ -34,7 +34,11 @@ export default function Deteils() {
                 <span className='text-sm text-cyan-700 font-medium'>{recipeDetailsData?.recipe.publisher}</span>
                 <h3 className='font-blod text-2xl truncate text-black'>{recipeDetailsData?.recipe.title}</h3>
                 <div>
-                    <button className='p-3 px-8 rounded-lg text-sm uppercase font-medium tracking-wider m-3 inline-block shadow-md bg-black text-white' onClick={() => handleAddToFavorites(recipeDetailsData?.recipe)}>Save as favorites</button>
+                    <button className='p-3 px-8 rounded-lg text-sm uppercase font-medium tracking-wider m-3 inline-block shadow-md bg-black text-white' onClick={() => handleAddToFavorites(recipeDetailsData?.recipe)}>
+                        {
+                            favorites && favorites.length > 0 && favorites.findIndex(item => item.id === recipeDetailsData?.recipe?.id) !== -1 ? 'Remove from favorites' : 'Add to favorites'
+                        }
+                    </button>
                 </div>
                 <div>
                     <div>
